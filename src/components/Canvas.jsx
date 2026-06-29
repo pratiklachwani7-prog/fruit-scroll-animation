@@ -49,7 +49,7 @@ const Canvas = (props) => {
     <canvas ref={canvasRef} 
     data-scroll
     data-scroll-speed={Math.random().toFixed(2)}
-    className='absolute'
+    className='absolute pointer-events-none'
     style={{width : `${size*1.2}px` , height : `${size*1.2}px` , top : `${top}%` , left : `${left}%` , zIndex: `${zIndex}%` }}
     id="canvas">
       

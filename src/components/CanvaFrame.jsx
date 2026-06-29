@@ -5,7 +5,7 @@ import Canvas from './Canvas.jsx';
 
 const CanvaFrame = (props) => {
   return (
-<div className='w-full min-h-screen relative'>
+<div className='w-full min-h-screen relative pointer-events-none'>
         {
           data[props.Num].map( (canvasDets , idxDets) => 
           {

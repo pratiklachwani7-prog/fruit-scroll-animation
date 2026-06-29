@@ -15,6 +15,7 @@
     "gsap": "^3.15.0",
     "locomotive-scroll": "^5.0.1",
     "react": "^19.2.7",
+    "react-curved-text": "^3.0.1",
     "react-dom": "^19.2.7",
     "tailwindcss": "^4.3.1"
   },
