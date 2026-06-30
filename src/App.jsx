@@ -6,13 +6,16 @@ import LocomotiveScroll from "locomotive-scroll";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import images from './components/canvasImages.js'
 
 const App = () => {
 
   gsap.registerPlugin(ScrollTrigger) ;
   const circleRef = useRef(null);
   const cursorRef = useRef(null);
+  const ImageRef = useRef(null);
   const [showCanvas, setShowCanvas] = useState(false);
+  const [showImage, setShowImage] = useState(false)
 
   useEffect(() => {
     const locomotiveScroll = new LocomotiveScroll();
@@ -34,8 +37,8 @@ const App = () => {
       {
         gsap.to(cursorRef.current, 
         {
-          x: dets.x - 30 ,
-          y: dets.y - 4 ,
+          x: (dets.x - 8) ,
+          y: (dets.y - 10),
           duration:0.2,
           ease:"linear",
         });
@@ -47,7 +50,11 @@ const App = () => {
 
   return (
     <>
-      <div ref={cursorRef} className="bg-red-500 w-10 h-10 rounded-full "></div>
+      <div ref={cursorRef} className="bg-red-500 w-10 h-10 rounded-full fixed">
+        {
+          showImage ? <img ref={ImageRef} src={images[5]} alt="" /> : null
+        }
+      </div>
       <div className="w-full h-screen relative">
         <div className="absolute w-full h-full pointer-events-none">
           <CanvaFrame Num={0} />
@@ -107,7 +114,34 @@ const App = () => {
             />
           </div>
         </div>
-        <div className="w-full mt-32 flex ">
+        <div 
+        onMouseEnter={ () => {
+          setShowImage(true);
+          gsap.to(cursorRef.current , 
+            {
+              scale:2,
+              
+            })
+        } }
+        onMouseLeave={ () => {
+          setShowImage(false) ;
+          gsap.to(cursorRef.current , 
+            {
+              scale:1,
+            })
+        } }
+        onClick={ () => 
+        {
+          if (showCanvas)
+          {
+            
+          }
+          else
+          {
+
+          }
+        } } 
+        className="w-full mt-32 flex ">
           <h1 className="flex items-center justify-center text-[13.6vw] tracking-wider font-normal">
             Thirtysixstudio
           </h1>
