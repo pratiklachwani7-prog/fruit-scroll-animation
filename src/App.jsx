@@ -14,6 +14,8 @@ const App = () => {
   const circleRef = useRef(null);
   const cursorRef = useRef(null);
   const ImageRef = useRef(null);
+  const revealRef = useRef(null);
+  const fruitsRef = useRef(null);
   const [showCanvas, setShowCanvas] = useState(false);
   const [showImage, setShowImage] = useState(false)
 
@@ -47,16 +49,63 @@ const App = () => {
 
   } , []);
 
+  const handleClick = (dets) => 
+  {
+    console.log("Clicked");
+    if (showCanvas == false)
+    {
+      let newX = dets.clientX ;
+      let  newY = dets.clientY
+      revealRef.current.style.zIndex = 0 ;
+      fruitsRef.current.style.zIndex = 0 ;
+      gsap.from(revealRef.current , {
+          width:"15px",
+          height:"15px",
+          x:newX,
+          y:newY,
+          duration:0.3,
+          borderRadius:"50%",
+          opacity:0,
+          scale:0.1,
+      })
+      gsap.from(fruitsRef.current , {
+        duration:0.8,
+        opacity:0,
+      })
+    }
+    else //already red color 
+    {
+      gsap.to(revealRef.current , {
+          opacity:0,
+          duration:0.7, 
+      })
+      gsap.to(fruitsRef.current , {
+          opacity:0,
+          duration:0.7,
+      })
+
+    }
+
+
+
+  }
 
   return (
-    <>
-      <div ref={cursorRef} className="bg-red-500 w-10 h-10 rounded-full fixed">
+    <div style={{backgroundColor : showCanvas ? "white" : "white"}}  className="">
+      <div ref={cursorRef} 
+      style={ {
+        backgroundColor : showCanvas ? "white" : "#FD2C2A"
+      } }
+      className={`w-10 h-10 rounded-full fixed z-2 pointer-events-none`}>
         {
           showImage ? <img ref={ImageRef} src={images[5]} alt="" /> : null
         }
       </div>
+      <div ref={revealRef} className="bg-[#FD2C2A] w-full h-[200vh] absolute -z-1 pointer-events-none opacity-100">
+        
+      </div>
       <div className="w-full h-screen relative">
-        <div className="absolute w-full h-full pointer-events-none">
+        <div ref={fruitsRef} className="absolute w-full h-full pointer-events-none -z-1">
           <CanvaFrame Num={0} />
         </div>
         <nav className="w-full h-23 flex justify-between p-5 text-3xl items-center">
@@ -130,24 +179,19 @@ const App = () => {
               scale:1,
             })
         } }
-        onClick={ () => 
+        onClick={ (dets) => 
         {
-          if (showCanvas)
-          {
-            
-          }
-          else
-          {
-
-          }
-        } } 
+          setShowCanvas(prev => !prev) ;
+          handleClick(dets) ;
+        }
+        }
         className="w-full mt-32 flex ">
           <h1 className="flex items-center justify-center text-[13.6vw] tracking-wider font-normal">
             Thirtysixstudio
           </h1>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
